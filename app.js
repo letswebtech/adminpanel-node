@@ -20,6 +20,8 @@ app.use(express.static(path.join(rootDir, 'public')))
 
 //routes
 app.use('/admin', admnRoutes);
+
+app.get('/', errorController.login);
 app.use(errorController.page404);
 
 //server

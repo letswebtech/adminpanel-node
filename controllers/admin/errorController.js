@@ -7,3 +7,13 @@ exports.page404 = (req, res, next) =>{
         activeAddproduct : true
     });
 };
+
+exports.login = (req, res, next) =>{
+    res.render('admin/login', {
+        pageTitle : 'PAGE NOT FOUND',
+        path : '#',
+        formsCss : true,
+        productCss : true,
+        activeAddproduct : true
+    });
+};
