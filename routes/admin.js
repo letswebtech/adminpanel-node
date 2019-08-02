@@ -6,9 +6,15 @@ const loginController = require('../controllers/admin/loginController');
 
 const router = express.Router();
 
+router.get('/', loginController.getLogin);
+
 router.get('/login', loginController.getLogin);
 
-router.get('/register', userController.getRegister);
+router.post('/login', loginController.postLogin);
+
+router.get('/register', loginController.getRegister);
+
+router.post('/register', loginController.postRegister);
 
 router.get('/dashboard', userController.getDashboard);
 
