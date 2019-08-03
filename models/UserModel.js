@@ -19,4 +19,11 @@ module.exports = class User {
             ]
           );
     }
+
+    static login(email, password){
+        return db.execute('SELECT * FROM users WHERE email = ? AND password = ?',[
+            email,
+            password
+        ]);
+    }
 };

@@ -3,48 +3,59 @@ const User = require('../../models/UserModel');
 exports.getLogin = (req, res, next) =>{
     res.render('admin/login', {
         pageTitle : 'Login',
-        path : '#',
-        formsCss : true,
-        productCss : true,
-        activeAddproduct : true
+        path : 'admin/login',
+        infoMessage : '',
+        infoClass : ''
     });
 };
 
 exports.postLogin = (req, res, next) =>{
-    console.log(req.body);
-    res.render('admin/login', {
-        pageTitle : 'Login',
-        path : '#',
-        formsCss : true,
-        productCss : true,
-        activeAddproduct : true
+    const email = req.body.email; 
+    const password = req.body.password;
+    User.login(email, password).then(([users, metaData])=>{
+        if(typeof(users) == 'object' && users.length > 0 ){
+            res.render('admin/dashboard', {
+                pageTitle : 'Dashboard',
+                path : 'admin/dashboard',
+                infoMessage : 'Welcome!',
+                infoClass : 'success',
+                data: users
+            });
+        }else{
+            res.render('admin/login', {
+                pageTitle : 'Login',
+                path : 'admin/login',
+                infoMessage : 'Invalid email/password',
+                infoClass : 'error'
+            });
+        }
+
+    }).catch((err)=>{
+        console.log(err);
     });
 };
 
 exports.getRegister = (req, res, next) =>{
     res.render('admin/register', {
-        pageTitle : 'User Registration',
-        path : '#',
-        formsCss : true,
-        productCss : true,
-        activeAddproduct : true
+        pageTitle : 'Register',
+        path : 'admin/register',
+        infoMessage : '',
+        infoClass : ''
     });
 };
 
 exports.postRegister = (req, res, next) =>{
-    console.log(req.body);
     const fname = req.body.fname;
     const lname = req.body.lname;
     const email = req.body.email;
     const password = req.body.password;
-    console.log(req.body);
-
     user =  new User(null, fname, lname, email, password);
     user.save().then(()=>{
         res.render('admin/login', {
-            pageTitle : 'User login',
+            pageTitle : 'Login',
             path : 'admin/login',
-            message : 'Account Created Succesfully',
+            infoMessage : 'Account Created Succesfully',
+            infoClass : "success"
         });
     }).catch((err)=>{
         console.log(err);
