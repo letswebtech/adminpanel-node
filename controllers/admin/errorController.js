@@ -10,10 +10,9 @@ exports.page404 = (req, res, next) =>{
 
 exports.login = (req, res, next) =>{
     res.render('admin/login', {
-        pageTitle : 'PAGE NOT FOUND',
-        path : '#',
-        formsCss : true,
-        productCss : true,
-        activeAddproduct : true
+        pageTitle : 'Login',
+        path : 'admin/login',
+        infoMessage : '',
+        infoClass : ''
     });
 };

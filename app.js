@@ -9,7 +9,8 @@ const bodyParser =  require('body-parser');
 const admnRoutes = require('./routes/admin');
 const errorController = require('./controllers/admin/errorController');
 const app = express();
-
+const sequelize = require('./util/database');
+ 
 //template engine
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -24,5 +25,9 @@ app.use('/admin', admnRoutes);
 app.get('/', errorController.login);
 app.use(errorController.page404);
 
-//server
-app.listen(PORT);
+//create table and run server
+sequelize.sync({force : true}).then((result)=>{
+    app.listen(PORT);
+}).catch(err => {
+    console.log(err);
+});

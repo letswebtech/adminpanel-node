@@ -1,7 +1,7 @@
 const Sequelize = require('Sequelize');
 const sequelize = require('../util/database');
 
-const User = sequelize.define('user', {
+const Employer = sequelize.define('employer', {
     id: {
         type: Sequelize.BIGINT(60),
         autoIncrement: true,
@@ -35,6 +35,24 @@ const User = sequelize.define('user', {
     },
     password: {
         type: Sequelize.STRING(600)
+    },
+    conpanyCode: {
+        type: Sequelize.STRING(256)
+    },
+    conpanyName: {
+        type: Sequelize.STRING(256)
+    },
+    conpanyDescription: {
+        type: Sequelize.TEXT
+    },
+    conpanyLogo: {
+        type: Sequelize.STRING(256)
+    },
+    compantUID: {
+        type: Sequelize.STRING(256)
+    },
+    conpanyPhone: {
+        type: Sequelize.STRING(20)
     },
     address1: {
         type: Sequelize.TEXT
@@ -74,4 +92,4 @@ const User = sequelize.define('user', {
     }
 });
 
-module.exports = User;
+module.exports = Employer;
