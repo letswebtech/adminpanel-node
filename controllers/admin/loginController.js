@@ -12,14 +12,15 @@ exports.getLogin = (req, res, next) =>{
 exports.postLogin = (req, res, next) =>{
     const email = req.body.email; 
     const password = req.body.password;
-    User.login(email, password).then(([users, metaData])=>{
-        if(typeof(users) == 'object' && users.length > 0 ){
+    User.login(email, password).then((user)=>{
+        console.log(user);
+        if(user){
             res.render('admin/dashboard', {
                 pageTitle : 'Dashboard',
                 path : 'admin/dashboard',
                 infoMessage : 'Welcome!',
                 infoClass : 'success',
-                data: users
+                data: user
             });
         }else{
             res.render('admin/login', {
@@ -29,7 +30,6 @@ exports.postLogin = (req, res, next) =>{
                 infoClass : 'error'
             });
         }
-
     }).catch((err)=>{
         console.log(err);
     });
@@ -49,7 +49,12 @@ exports.postRegister = (req, res, next) =>{
     const lname = req.body.lname;
     const email = req.body.email;
     const password = req.body.password;
-    user =  new User(null, fname, lname, email, password);
+    user =  new User({ 
+        fname: fname,
+        lname: lname,
+        email: email,
+        password: password,
+    });
     user.save().then(()=>{
         res.render('admin/login', {
             pageTitle : 'Login',

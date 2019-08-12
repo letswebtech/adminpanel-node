@@ -1,31 +1,27 @@
-//let  PORT = process.env.PORT || 3000 ;
-/* MYSQL CONNECTION */
-// const mysql = require('mysql2');
-// const localDB = {
-//     host: 'localhost',
-//     user: 'root',
-//     database: 'testdb',
-//     password: ''
-// };
-// const liveDb = {
-//     host: 'remotemysql.com',
-//     user: 'xb4JJoNeNb',
-//     database: 'xb4JJoNeNb',
-//     password: 'mWuocDKlu6'
-// };
-// const pool = mysql.createPool(PORT == 3000 ? localDB : liveDb);
+const mongodb = require('mongodb');
+const MongoClient = mongodb.MongoClient;
 
-// module.exports = pool.promise(); 
+let _db;
 
+const mongoConnect = callback => {
+  MongoClient.connect(
+    'mongodb+srv://letswebtech:rhl2neOzmdarWBlh@cluster0-bs3pu.mongodb.net/firstApp?retryWrites=true'
+  )
+    .then(client => {
+      _db = client.db();
+      callback();
+    })
+    .catch(err => {
+      throw err;
+    });
+};
 
-/* SEQUELIZER CONNECTION */
+const getDb = () => {
+  if (_db) {
+    return _db;
+  }
+  throw 'No database found!';
+};
 
-const Sequelize =  require('sequelize');
-
-const sequelize = new Sequelize('testdb', 'root', '', {
-    dialect: 'mysql',
-    host: 'localhost',
-    logging: false
-});
-
-module.exports = sequelize;
+exports.mongoConnect = mongoConnect;
+exports.getDb = getDb;

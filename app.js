@@ -8,8 +8,8 @@ const express = require('express');
 const bodyParser =  require('body-parser');
 const admnRoutes = require('./routes/admin');
 const errorController = require('./controllers/admin/errorController');
+const mongoConnect = require('./util/database').mongoConnect;
 const app = express();
-const sequelize = require('./util/database');
  
 //template engine
 app.set('view engine', 'ejs');
@@ -21,13 +21,10 @@ app.use(express.static(path.join(rootDir, 'public')))
 
 //routes
 app.use('/admin', admnRoutes);
-
 app.get('/', errorController.login);
 app.use(errorController.page404);
 
 //create table and run server
-sequelize.sync({force : true}).then((result)=>{
+mongoConnect(() => {
     app.listen(PORT);
-}).catch(err => {
-    console.log(err);
-});
+})
