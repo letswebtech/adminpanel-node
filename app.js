@@ -3,7 +3,7 @@ var PORT = process.env.PORT || 3000 ;
 //imports
 const http =  require('http');
 const path =  require('path');
-const rootDir = require('./util/path');
+const rootDir = require('./util/path').rootDir;
 const express = require('express');
 const bodyParser =  require('body-parser');
 const admnRoutes = require('./routes/admin');

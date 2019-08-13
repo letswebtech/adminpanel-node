@@ -1,4 +1,5 @@
 const User = require('../../models/UserModel');
+const baseUrl = require('../../util/path').baseUrl;
 
 exports.getLogin = (req, res, next) =>{
     res.render('admin/login', {
@@ -13,22 +14,11 @@ exports.postLogin = (req, res, next) =>{
     const email = req.body.email; 
     const password = req.body.password;
     User.login(email, password).then((user)=>{
-        console.log(user);
+        console.log(baseUrl('admin/dashboard'));
         if(user){
-            res.render('admin/dashboard', {
-                pageTitle : 'Dashboard',
-                path : 'admin/dashboard',
-                infoMessage : 'Welcome!',
-                infoClass : 'success',
-                data: user
-            });
+            res.redirect(302, baseUrl('admin/dashboard'));
         }else{
-            res.render('admin/login', {
-                pageTitle : 'Login',
-                path : 'admin/login',
-                infoMessage : 'Invalid email/password',
-                infoClass : 'error'
-            });
+            res.redirect(302, baseUrl('admin/login'));
         }
     }).catch((err)=>{
         console.log(err);
@@ -53,15 +43,10 @@ exports.postRegister = (req, res, next) =>{
         fname: fname,
         lname: lname,
         email: email,
-        password: password,
+        password: password,   
     });
     user.save().then(()=>{
-        res.render('admin/login', {
-            pageTitle : 'Login',
-            path : 'admin/login',
-            infoMessage : 'Account Created Succesfully',
-            infoClass : "success"
-        });
+        res.redirect(200, 'admin/login');
     }).catch((err)=>{
         console.log(err);
     });

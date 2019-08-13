@@ -1,3 +1,10 @@
 const path = require('path');
+var PORT = process.env.PORT || 3000 ;
 
-module.exports = path.dirname(process.mainModule.filename);
+exports.rootDir = path.dirname(process.mainModule.filename);
+exports.baseUrl = (route) => {
+    if(route){
+        return  'http://localhost:'+PORT+'/'+route;
+    }
+    return 'http://localhost:'+PORT+'/';
+};
