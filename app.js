@@ -10,12 +10,12 @@ const admnRoutes = require('./routes/admin');
 const errorController = require('./controllers/admin/errorController');
 const mongoConnect = require('./util/database').mongoConnect;
 const app = express();
- 
 //template engine
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 //utils and heplers
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({'extended': false}));
 app.use(express.static(path.join(rootDir, 'public')))
 

@@ -18,4 +18,9 @@ router.post('/register', loginController.postRegister);
 
 router.get('/dashboard', userController.getDashboard);
 
+/* navigation */
+router.get('/navigation', userController.getNavigation)
+router.post('/navigation/create', userController.createNavigation)
+
+
 module.exports = router;
