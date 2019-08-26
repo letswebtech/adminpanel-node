@@ -14,8 +14,8 @@ exports.postLogin = (req, res, next) =>{
     const email = req.body.email; 
     const password = req.body.password;
     User.login(email, password).then((user)=>{
-        console.log(baseUrl('admin/dashboard'));
         if(user){
+            req.session.user = user;
             res.redirect(302, baseUrl('admin/dashboard'));
         }else{
             res.redirect(302, baseUrl('admin/login'));
