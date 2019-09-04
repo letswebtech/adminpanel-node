@@ -8,11 +8,11 @@ class Navigation {
     this.icon = icon;
     this.parentId = parentId;
     this.actionPath = actionPath;
-    this.showInMenu = showInMenu;
-    this.showInPermission = showInPermission;
-    this.childPermission = childPermission;
+    this.showInMenu = showInMenu; //0.No, 1.Yes
+    this.showInPermission = showInPermission; //0.No, 1.Yes
+    this.childPermission = childPermission; //0.No, 1.Yes
     this.displayOrder = displayOrder;
-    this.status = status;
+    this.status = status; //0.Inactive, 1.Active
   }
   save() {
       const db = getDb();

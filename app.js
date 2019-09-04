@@ -22,7 +22,7 @@ app.set('views', 'views');
 
 //utils and heplers
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({'extended': false}));
+app.use(bodyParser.urlencoded({'extended': true}));
 app.use(express.static(path.join(rootDir, 'public')));
 app.use(session({
     secret:'my sercret',
