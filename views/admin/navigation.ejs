@@ -124,8 +124,7 @@
           $.ajax({
               url: "<%- pathHelper.baseUrl('admin/navigation/create') %>",
               type: 'POST',
-              //data: {'name': 'kashif'},//trying to get this in controller
-              data: new FormData($('#create-form')[0]),
+              data: new FormData($('#create-form')[0]),//trying to get this in controller
               processData: false,
               contentType: false,
               dataType: 'json',
@@ -139,10 +138,11 @@
                   var msg = formatErrorMessage(jqXHR, exception);
                   $('.message_box').html(msg).removeClass('hide');
               },
-              success: function (data)
+              success: function (response)
               {
+                  console.log(response);
                   $('#createBtn').attr('disabled',false);
-                  $('.message_box').html(data.msg).removeClass('hide alert-danger').addClass('alert-success');
+                  $('.message_box').html(response.message).removeClass('hide alert-danger').addClass('alert-success');
               }
           });
       });

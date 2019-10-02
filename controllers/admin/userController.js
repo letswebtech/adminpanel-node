@@ -1,4 +1,4 @@
- const path = require('../../util/path')
+const path = require('../../util/path');
 
 exports.getDashboard = (req, res, next) =>{
     res.render('admin/dashboard', {
@@ -17,7 +17,9 @@ exports.getNavigation = (req, res, next) =>{
     });
 }
 exports.createNavigation = (req, res, next) =>{
-    console.log(req.body);// this is always blank
-    res.json({ access: 'logged' });
+    res.json({ 
+        message: 'success',
+        status: 200,
+        data: null
+    });
 }
-
