@@ -6,17 +6,18 @@ const path =  require('path');
 const rootDir = require('./util/path').rootDir;
 const express = require('express');
 const bodyParser =  require('body-parser');
-
-const admnRoutes = require('./routes/admin');
+const webRoute = require('./routes/web');
 const errorController = require('./controllers/admin/errorController');
 const mongoConnect = require('./util/database').mongoConnect;
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const app = express();
+
 const store = new MongoDBStore({
     uri: 'mongodb+srv://letswebtech:rhl2neOzmdarWBlh@cluster0-bs3pu.mongodb.net/firstApp?retryWrites=true',
     collection: 'sessions'
 });
+
 //template engine
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -32,7 +33,7 @@ app.use(session({
     store:store,
 }));
 //routes
-app.use('/admin', admnRoutes);
+app.use('/', webRoute);
 app.get('/', errorController.login);
 app.use(errorController.page404);
 

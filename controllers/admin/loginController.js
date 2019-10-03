@@ -1,5 +1,6 @@
 const User = require('../../models/UserModel');
 const baseUrl = require('../../util/path').baseUrl;
+const bcrypt  = require('bcryptjs');
 
 exports.getLogin = (req, res, next) =>{
     res.render('admin/login', {
@@ -38,7 +39,8 @@ exports.postRegister = (req, res, next) =>{
     const fname = req.body.fname;
     const lname = req.body.lname;
     const email = req.body.email;
-    const password = req.body.password;
+    const password = bcrypt.hashSync(req.body.password, 12);
+    
     user =  new User({ 
         fname: fname,
         lname: lname,
@@ -46,8 +48,15 @@ exports.postRegister = (req, res, next) =>{
         password: password,   
     });
     user.save().then(()=>{
-        res.redirect(200, 'admin/login');
+        res.redirect(302, '/admin/login');
     }).catch((err)=>{
         console.log(err);
+    });
+};
+
+exports.logout = (req, res, next) => {
+    req.session.destroy(function(){
+        console.log('session expired');
+        res.redirect(302, '/admin/login');
     });
 };

@@ -1,5 +1,6 @@
 const getDb = require('../util/database').getDb;
 const mongodb = require('mongodb');
+const bcrypt  = require('bcryptjs');
 
 class User {
   constructor({fname, lname, profilePic, email, dialCode, mobileNo, password, address1, address2, cityId, stateId, countryId, local, profileCompleted, emailVerified, mobileNoVerified, subscriptionId, status } = {}) {
@@ -49,7 +50,6 @@ class User {
         console.log(err);
       });
   }
-
   static findById(id) {
     const db = getDb();
     return db
@@ -63,18 +63,22 @@ class User {
         console.log(err);
       });
   }
-
   static login(email, password) {
     const db = getDb();
     return db
       .collection('users')
       .find({
-        email: email,
-        password: password
+        email: email
       })
       .next()
       .then(user => {
-        return user;
+        return bcrypt.compare(password, user.password).then(doMatch =>{
+          if(doMatch){
+            return user;
+          }else{
+            return 
+          }
+        });
       })
       .catch(err => {
         console.log(err);
