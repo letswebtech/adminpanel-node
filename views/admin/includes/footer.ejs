@@ -10,7 +10,21 @@
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
+
+  <!-- Modal Default Size -->
+<div id="default_modal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content"></div>
+    </div>
+</div>
 </div>
 <!-- ./wrapper -->
+<script>
+  $('#default_modal').on('hidden.bs.modal', function (e) {
+    $(this).removeData();
+    $(this).find('.modal-content').empty();
+  });
+  $('#default_modal').on('show.bs.modal', function (e) {});
+</script>
 </body>
 </html>

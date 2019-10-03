@@ -13,7 +13,11 @@ router.post('/admin/login', loginController.postLogin);
 router.get('/admin/register', loginController.getRegister);
 router.post('/admin/register', loginController.postRegister);
 router.get('/admin/logout', loginController.logout);
+
+/* admin routes*/
 router.get('/admin/dashboard', isAuth, userController.getDashboard);
+router.get('/admin/profile/update', isAuth, userController.getProfileUpdate);
+router.post('/admin/profile/update', isAuth, userController.postProfileUpdate);
 /* navigation */
 router.get('/admin/navigation', isAuth, userController.getNavigation)
 router.post('/admin/navigation/create', isAuth, upload.none(), userController.createNavigation)
