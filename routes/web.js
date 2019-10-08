@@ -16,7 +16,7 @@ router.get('/admin/logout', loginController.logout);
 
 /* admin routes*/
 router.get('/admin/dashboard', isAuth, userController.getDashboard);
-router.get('/admin/profile/update', isAuth, userController.getProfileUpdate);
+router.get('/admin/profile/update/:_id?', isAuth, userController.getProfileUpdate);
 router.post('/admin/profile/update', isAuth, userController.postProfileUpdate);
 /* navigation */
 router.get('/admin/navigation', isAuth, userController.getNavigation)

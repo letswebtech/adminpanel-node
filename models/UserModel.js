@@ -54,7 +54,7 @@ class User {
     const db = getDb();
     return db
       .collection('users')
-      .find({ id: new mongodb.ObjectId(id) })
+      .find({ _id: new mongodb.ObjectId(id) })
       .next()
       .then(user => {
         return user;
@@ -63,6 +63,20 @@ class User {
         console.log(err);
       });
   }
+
+  static update(id, dataArr) {
+    const db = getDb();
+    return db
+      .collection('users')
+      .updateOne({ _id: new mongodb.ObjectId(id) }, { $set: dataArr})
+      .then(response => {
+        return response;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   static login(email, password) {
     const db = getDb();
     return db

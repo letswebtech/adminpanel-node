@@ -237,7 +237,7 @@
             <!-- Menu Footer-->
             <li class="user-footer">
               <div class="pull-left">
-                <a href="<%- pathHelper.baseUrl('admin/profile/update') %>" class="btn btn-default btn-flat"  data-toggle="modal" data-target="#default_modal">Profile</a>
+                <a href="<%- pathHelper.baseUrl('admin/profile/update') %>/<%-  data.user._id %>" class="btn btn-default btn-flat"  data-toggle="modal" data-target="#default_modal">Profile</a>
               </div>
               <div class="pull-right">
                 <a href="<%- pathHelper.baseUrl('admin/logout') %>" class="btn btn-default btn-flat">Sign out</a>
